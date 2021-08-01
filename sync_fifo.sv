@@ -1,5 +1,5 @@
 module sync_fifo
-#(parameter depth = 32,
+	#(parameter DEPTH = 32,
   parameter DW = 8
   )
   
@@ -13,11 +13,11 @@ module sync_fifo
   );
   
 
-localparam AW = $clog2(depth);
+localparam AW = $clog2(DEPTH);
 
-logic [$clog2(depth):0] wrptr, rdptr;
+logic [AW:0] wrptr, rdptr;
 
-logic [Dw-1:0] mem [depth-1:0];
+logic [DW-1:0] mem [AW-1:0];
 
 always @(posedge clk or negedge rst_b) begin
 	if (!rst_b) begin
