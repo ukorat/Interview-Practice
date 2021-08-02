@@ -21,15 +21,18 @@ module req_ack_4ph_tx
     else ack_r <= {ack_r[0], ack};
   end
 	
+	assign ack_s = ack_r[1]; //synchronized ack
+	
   always_ff @(posedge clk_tx or negedge rst_b) begin
     if (!rst_b)         req <= 1'b0;
     else if (val & rdy) req <= 1'b1;
-    else if (ack) 	req <= 1'b0;
+    else if (ack_s) 	req <= 1'b0;
     else                req <= req;
-    
-    assign rdy = ! (req | acq);
+  end
 
-    always_ff @(posedge clk_tx)
+  assign rdy = ! (req | acq);
+
+  always_ff @(posedge clk_tx) 
       if (val & rdy) 	dout <= din;
 	
 endmodule
