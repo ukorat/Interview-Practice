@@ -43,5 +43,4 @@ module req_ack_2ph_tx
   end
     
   
-  
-  
+endmodule
