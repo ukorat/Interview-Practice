@@ -38,5 +38,8 @@ module req_ack_2ph_rx
     else                  ack <= ack;
   end
   
+  always_ff @(posedge clk_rx)
+    if (val && rdy) dout <= din;
+  
 endmodule
   
